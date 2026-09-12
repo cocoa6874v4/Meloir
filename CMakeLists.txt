@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.20)
+cmake_minimum_required(VERSION 3.21)
 
 project(meloir LANGUAGES C CXX)
 
@@ -15,9 +15,28 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(miniaudio)
 
+find_package(PkgConfig REQUIRED)
+
+pkg_check_modules(
+    NOTCURSES
+    REQUIRED
+    IMPORTED_TARGET
+    notcurses
+)
+
 add_executable(meloir
     src/audio/player.cpp
     src/main.cpp
+    src/ui/musicfolder_list.cpp
+    src/ui/music_list.cpp
+    src/ui/ui.cpp
+    src/util/getsong.cpp
 )
 
-target_link_libraries(meloir PRIVATE miniaudio)
+target_link_libraries(meloir
+    PRIVATE
+        miniaudio
+        notcurses++
+        notcurses
+        notcurses-core
+)

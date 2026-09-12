@@ -1,20 +1,13 @@
 #include "audio/player.hpp"
+#include "ui/ui.hpp"
+#include "util/getsong.hpp"
+
+#include <ncpp/NotCurses.hh>
+
 #include <iostream>
+#include <vector>
 
 int main() {
-    if (!player::init()) {
-        return 1;
-    }
 
-    if (!player::load("test.wav")) {
-        player::shutdown();
-        return 1;
-    }
-
-    player::play();
-
-    int x;
-    std::cin >> x;
-
-    player::shutdown();
+    return draw();
 }
