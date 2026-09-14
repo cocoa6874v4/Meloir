@@ -4,6 +4,10 @@
 #include "musicfolder_list.hpp"
 
 int draw() {
+    enum class Focus { FolderList, MusicList };
+
+    Focus focus = Focus::FolderList;
+
     ncpp::NotCurses nc;
 
     ncpp::Plane* stdplane = nc.get_stdplane();
@@ -18,12 +22,20 @@ int draw() {
     musicfolderlist.draw();
 
     nc.render();
+    uint32_t key;
 
     while (true) {
-        uint32_t key = nc.get(true);
+        key = nc.get(true);
 
         if (key == 'q')
             break;
+        if (focus == Focus::FolderList) {
+            musicfolderlist.handle_input(key);
+        }
+        if (focus == Focus::MusicList) {
+            // musiclist
+        }
     }
+
     return 0;
 }
