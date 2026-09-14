@@ -29,12 +29,18 @@ int draw() {
 
         if (key == 'q')
             break;
+
         if (focus == Focus::FolderList) {
             musicfolderlist.handle_input(key);
         }
+
         if (focus == Focus::MusicList) {
             // musiclist
         }
+
+        musicfolderlist.draw();
+        musiclist.draw();
+
         nc.render();
     }
 

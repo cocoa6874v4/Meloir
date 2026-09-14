@@ -29,9 +29,12 @@ void MusicfolderList::draw() {
 }
 
 void MusicfolderList::move_down() {
-    if (selected_ + 0 < songs_.size()) {
+    if (selected_ + 1 < songs_.size()) {
         selected_++;
     }
 }
 void MusicfolderList::move_up() {
+    if (selected_ > 0) {
+        selected_--;
+    }
 }
