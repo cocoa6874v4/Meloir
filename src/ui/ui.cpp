@@ -35,6 +35,7 @@ int draw() {
         if (focus == Focus::MusicList) {
             // musiclist
         }
+        nc.render();
     }
 
     return 0;

@@ -25,11 +25,12 @@ void MusicfolderList::draw() {
         y++;
     }
 
-    ui::draw_cursor(plane_, selected_);
+    ui::draw_cursor(plane_, selected_ + 2);
 }
 
 void MusicfolderList::move_down() {
-    if (selected_ + 1 < songs_.size()) {
+    if (selected_ + 0 < songs_.size()) {
+        selected_++;
     }
 }
 void MusicfolderList::move_up() {
