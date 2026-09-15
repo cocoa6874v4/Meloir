@@ -1,17 +1,19 @@
 #pragma once
 
 #include <filesystem>
-#include <string>
 #include <vector>
 
 namespace fs = std::filesystem;
 
 namespace util {
-struct SongStruct {
-    std::string songname;
-    std::filesystem::path path;
-    int depth;
+
+struct FolderNode {
+    fs::path path;
+    std::vector<FolderNode> children;
 };
 
+FolderNode get_folder_tree(const fs::path& folder);
+
 std::vector<fs::path> get_songs(const fs::path& folder);
+
 } // namespace util

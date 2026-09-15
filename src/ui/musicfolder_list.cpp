@@ -1,5 +1,6 @@
 #include "musicfolder_list.hpp"
 
+#include "../util/getsong.hpp"
 #include "draw_cursor.hpp"
 #include <vector>
 
