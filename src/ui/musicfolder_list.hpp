@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../util/getsong.hpp"
 #include <filesystem>
 #include <ncpp/Plane.hh>
 #include <vector>
@@ -10,11 +11,22 @@ class MusicfolderList {
 
     void handle_input(uint32_t key);
     void draw();
+
     void move_down();
     void move_up();
-    std::vector<std::filesystem::path> songs_;
 
   private:
+    struct VisibleFolder {
+        const util::FolderNode* node;
+        int depth;
+    };
+
+    void build_visible(const util::FolderNode& node, int depth);
+
     ncpp::Plane plane_;
+
+    util::FolderNode tree_;
+    std::vector<VisibleFolder> visible_;
+
     int selected_;
 };

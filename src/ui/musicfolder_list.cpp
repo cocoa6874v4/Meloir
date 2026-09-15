@@ -1,28 +1,42 @@
 #include "musicfolder_list.hpp"
 
-#include "../util/getsong.hpp"
 #include "draw_cursor.hpp"
-#include <vector>
 
 MusicfolderList::MusicfolderList(ncpp::Plane* parent)
-    : plane_(parent, 20, 30, 0, 0), songs_(util::get_songs("musics")), selected_(0) {
+    : plane_(parent, 20, 30, 0, 0), tree_(util::get_folder_tree("musics")), selected_(0) {
+    build_visible(tree_, 0);
+}
+
+void MusicfolderList::build_visible(const util::FolderNode& node, int depth) {
+    for (const auto& child : node.children) {
+        visible_.push_back({.node = &child, .depth = depth});
+
+        build_visible(child, depth + 1);
+    }
 }
 
 void MusicfolderList::handle_input(uint32_t key) {
     if (key == 'j')
         move_down();
+
     if (key == 'k')
         move_up();
 }
 
 void MusicfolderList::draw() {
-    int y = 2;
     plane_.erase();
 
-    plane_.putstr(0, 0, "songname");
+    plane_.putstr(0, 0, "Folders");
 
-    for (const auto& song : songs_) {
-        plane_.putstr(y, 1, song.c_str());
+    int y = 2;
+
+    for (const auto& folder : visible_) {
+        std::string line(folder.depth * 2, ' ');
+
+        line += folder.node->path.filename().string();
+
+        plane_.putstr(y, 1, line.c_str());
+
         y++;
     }
 
@@ -30,12 +44,11 @@ void MusicfolderList::draw() {
 }
 
 void MusicfolderList::move_down() {
-    if (selected_ + 1 < songs_.size()) {
+    if (selected_ + 1 < visible_.size())
         selected_++;
-    }
 }
+
 void MusicfolderList::move_up() {
-    if (selected_ > 0) {
+    if (selected_ > 0)
         selected_--;
-    }
 }
