@@ -8,6 +8,13 @@
 #include <vector>
 
 int main() {
+    if (!player::init()) {
+        return 1;
+    }
 
-    return draw();
+    int result = draw();
+
+    player::shutdown();
+
+    return result;
 }

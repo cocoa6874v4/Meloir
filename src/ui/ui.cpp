@@ -1,5 +1,6 @@
 #include "ui.hpp"
 
+#include "../audio/player.hpp"
 #include "music_list.hpp"
 #include "musicfolder_list.hpp"
 
@@ -32,10 +33,28 @@ int draw() {
 
         if (focus == Focus::FolderList) {
             musicfolderlist.handle_input(key);
+
+            if (key == 'l') {
+                musiclist.set_folder(musicfolderlist.selected_folder());
+
+                focus = Focus::MusicList;
+            }
         }
 
-        if (focus == Focus::MusicList) {
-            // musiclist
+        else if (focus == Focus::MusicList) {
+            musiclist.handle_input(key);
+
+            if (key == 'h') {
+                focus = Focus::FolderList;
+            }
+            if (key == NCKEY_ENTER) {
+                const auto* song = musiclist.selected_song();
+
+                if (song) {
+                    player::load(song->string());
+                    player::play();
+                }
+            }
         }
 
         musicfolderlist.draw();

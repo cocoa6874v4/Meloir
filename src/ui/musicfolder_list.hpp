@@ -14,6 +14,7 @@ class MusicfolderList {
 
     void move_down();
     void move_up();
+    const fs::path& selected_folder() const;
 
   private:
     struct VisibleFolder {

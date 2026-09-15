@@ -43,6 +43,10 @@ void MusicfolderList::draw() {
     ui::draw_cursor(plane_, selected_ + 2);
 }
 
+const fs::path& MusicfolderList::selected_folder() const {
+    return visible_[selected_].node->path;
+}
+
 void MusicfolderList::move_down() {
     if (selected_ + 1 < visible_.size())
         selected_++;
