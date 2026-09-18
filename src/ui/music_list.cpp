@@ -3,7 +3,7 @@
 #include "../util/getsong.hpp"
 #include "draw_cursor.hpp"
 
-MusicList::MusicList(ncpp::Plane* parent) : plane_(parent, 20, 40, 0, 30), selected_(0) {
+MusicList::MusicList(ncpp::Plane* parent) : plane_(parent, 20, 30, 0, 30), selected_(0) {
 }
 
 void MusicList::set_folder(const fs::path& folder) {

@@ -3,6 +3,7 @@
 #include "../audio/player.hpp"
 #include "music_list.hpp"
 #include "musicfolder_list.hpp"
+#include "now_playing.hpp"
 
 int draw() {
     enum class Focus { FolderList, MusicList };
@@ -18,9 +19,11 @@ int draw() {
 
     MusicList musiclist(stdplane);
     MusicfolderList musicfolderlist{stdplane};
+    NowPlaying nowplayingpanel(stdplane);
 
     musiclist.draw();
     musicfolderlist.draw();
+    nowplayingpanel.draw_playing();
 
     nc.render();
     uint32_t key;
@@ -59,6 +62,7 @@ int draw() {
 
         musicfolderlist.draw();
         musiclist.draw();
+        nowplayingpanel.draw_playing();
 
         nc.render();
     }

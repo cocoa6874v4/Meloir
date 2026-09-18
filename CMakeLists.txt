@@ -32,6 +32,7 @@ add_executable(meloir
     src/ui/ui.cpp
     src/util/getsong.cpp
     src/ui/draw_cursor.cpp
+    src/ui/now_playing.cpp
 )
 
 target_link_libraries(meloir
