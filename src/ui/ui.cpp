@@ -56,6 +56,7 @@ int draw() {
                 if (song) {
                     player::load(song->string());
                     player::play();
+                    nowplayingpanel.set_song(*song);
                 }
             }
         }

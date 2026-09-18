@@ -8,4 +8,13 @@ void NowPlaying::draw_playing() {
     plane_.erase();
 
     plane_.putstr(0, 0, "Playing");
+
+    if (!song_.empty()) {
+        const std::string name = song_.filename().string();
+        plane_.putstr(2, 1, name.c_str());
+    }
+}
+
+void NowPlaying::set_song(const fs::path& song) {
+    song_ = song;
 }
