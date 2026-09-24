@@ -4,6 +4,9 @@
 #include "music_list.hpp"
 #include "musicfolder_list.hpp"
 #include "now_playing.hpp"
+#include <notcurses/nckeys.h>
+#include <thread>
+#include <unistd.h>
 
 int draw() {
     enum class Focus { FolderList, MusicList };
@@ -29,7 +32,7 @@ int draw() {
     uint32_t key;
 
     while (true) {
-        key = nc.get(true);
+        key = nc.get(false);
 
         if (key == 'q')
             break;
@@ -61,10 +64,15 @@ int draw() {
             }
         }
 
+        if (key == NCKEY_SPACE) {
+            player::toggle_play();
+        }
+
         musicfolderlist.draw();
         musiclist.draw();
         nowplayingpanel.draw_playing();
 
+        std::this_thread::sleep_for(std::chrono::milliseconds(30));
         nc.render();
     }
 
