@@ -88,4 +88,11 @@ float get_duration() {
     return seconds;
 }
 
+bool is_finished() {
+    if (!loaded)
+        return false;
+
+    return ma_sound_at_end(&sound) == MA_TRUE;
+}
+
 } // namespace player

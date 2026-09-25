@@ -13,5 +13,6 @@ void shutdown();
 void toggle_play();
 float get_current_time();
 float get_duration();
+bool is_finished();
 
 } // namespace player

@@ -30,7 +30,6 @@ int draw() {
 
     nc.render();
     uint32_t key;
-    const auto* song = musiclist.selected_song();
 
     while (true) {
         key = nc.get(false);
@@ -55,6 +54,7 @@ int draw() {
                 focus = Focus::FolderList;
             }
             if (key == NCKEY_ENTER) {
+                const auto* song = musiclist.selected_song();
 
                 if (song) {
                     player::load(song->string());
@@ -72,8 +72,13 @@ int draw() {
         musiclist.draw();
         nowplayingpanel.draw_playing();
 
-        if (player::get_current_time() == player::get_duration()) {
+        if (player::is_finished()) {
+            const auto* song = musiclist.selected_song();
+
             musiclist.next_song();
+            player::load(song->string());
+            player::play();
+            nowplayingpanel.set_song(*song);
         }
 
         std::this_thread::sleep_for(std::chrono::milliseconds(30));
