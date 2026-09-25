@@ -47,6 +47,14 @@ const fs::path* MusicList::selected_song() const {
     return &songs_[selected_];
 }
 
+const fs::path* MusicList::next_song() {
+    selected_++;
+}
+
+const fs::path* MusicList::previous_song() {
+    selected_--;
+}
+
 void MusicList::move_down() {
     if (selected_ + 1 < songs_.size())
         selected_++;

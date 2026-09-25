@@ -18,6 +18,8 @@ class MusicList {
     void move_down();
     void move_up();
     const fs::path* selected_song() const;
+    const fs::path* next_song();
+    const fs::path* previous_song();
 
   private:
     ncpp::Plane plane_;
